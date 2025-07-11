@@ -22,6 +22,7 @@ public class UserModel {
 
     private int age;
 
+    @Column(unique = true)
     private String email;
 
     private String department;
