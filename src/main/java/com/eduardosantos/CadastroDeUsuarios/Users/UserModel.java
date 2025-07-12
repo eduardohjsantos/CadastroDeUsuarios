@@ -18,13 +18,16 @@ public class UserModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "age")
     private int age;
 
     @Column(unique = true)
     private String email;
 
+    @Column(name = "department")
     private String department;
 
     @ManyToOne

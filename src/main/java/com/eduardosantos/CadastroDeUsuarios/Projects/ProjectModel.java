@@ -18,8 +18,10 @@ public class ProjectModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
+    @Column(name = "difficulty")
     private String difficulty;
 
     @OneToMany(mappedBy = "project")
