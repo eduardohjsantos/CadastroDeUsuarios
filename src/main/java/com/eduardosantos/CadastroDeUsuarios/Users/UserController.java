@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Struct;
 
 @RestController
-@RequestMapping
+@RequestMapping("/users")
 public class UserController {
 
     @GetMapping("/boasvindas")
@@ -15,33 +15,32 @@ public class UserController {
 
 
 
-
     // Add user (CREATE)
-    @PostMapping("/createuser")
+    @PostMapping("/create")
     public String createUser(){
         return "User created";
     }
 
     // Show all users (READ)
-    @GetMapping("/allusers")
+    @GetMapping("/list")
     public String showAllUsers(){
         return "Showing all users";
     }
 
     // Search user by id (READ)
-    @GetMapping("/userID")
+    @GetMapping("/listID")
     public String showUserById(){
         return "Showing user with selected id";
     }
 
     // Change user data (UPDATE)
-    @PutMapping("/updateuserID")
+    @PutMapping("/updateID")
     public String updateUserById(){
         return "Update user by id";
     }
 
     // Delete user (DELETE)
-    @DeleteMapping("/deleteuserID")
+    @DeleteMapping("/deleteID")
     public String deleteUserById(){
         return "Delete user by id";
     }

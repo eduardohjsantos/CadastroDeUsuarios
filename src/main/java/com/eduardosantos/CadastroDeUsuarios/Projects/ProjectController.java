@@ -3,35 +3,35 @@ package com.eduardosantos.CadastroDeUsuarios.Projects;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("projects")
 public class ProjectController {
 
     // Add project (CREATE)
-    @PostMapping("/createproject")
+    @PostMapping("/create")
     public String createProject(){
         return "Project created";
     }
 
     // Show all users (READ)
-    @GetMapping("/allprojects")
+    @GetMapping("/list")
     public String showAllProjects(){
         return "Showing all projects";
     }
 
     // Search user by id (READ)
-    @GetMapping("/projectID")
+    @GetMapping("/listID")
     public String showProjectById(){
         return "Showing project with selected id";
     }
 
     // Change user data (UPDATE)
-    @PutMapping("/updateprojectID")
+    @PutMapping("/updateID")
     public String updateProjectById(){
         return "Update project by id";
     }
 
     // Delete user (DELETE)
-    @DeleteMapping("/deleteprojectID")
+    @DeleteMapping("/deleteID")
     public String deleteProjectById(){
         return "Delete project by id";
     }
