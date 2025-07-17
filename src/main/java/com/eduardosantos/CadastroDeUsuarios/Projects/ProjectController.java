@@ -2,9 +2,17 @@ package com.eduardosantos.CadastroDeUsuarios.Projects;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("projects")
 public class ProjectController {
+
+    private ProjectService projectService;
+
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
+    }
 
     // Add project (CREATE)
     @PostMapping("/create")
@@ -14,8 +22,8 @@ public class ProjectController {
 
     // Show all users (READ)
     @GetMapping("/list")
-    public String showAllProjects(){
-        return "Showing all projects";
+    public List<ProjectModel> listProjects(){
+        return projectService.listProjects();
     }
 
     // Search user by id (READ)
