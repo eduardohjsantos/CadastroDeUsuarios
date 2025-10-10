@@ -33,9 +33,9 @@ public class UserController {
     }
 
     // Search user by id (READ)
-    @GetMapping("/listID")
-    public String showUserById(){
-        return "Showing user with selected id";
+    @GetMapping("/list/{id}")
+    public UserModel listUsersById(@PathVariable Long id){
+        return userService.listUsersById(id);
     }
 
     // Change user data (UPDATE)

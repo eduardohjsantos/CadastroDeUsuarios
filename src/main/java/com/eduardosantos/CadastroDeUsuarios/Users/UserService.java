@@ -1,9 +1,11 @@
 package com.eduardosantos.CadastroDeUsuarios.Users;
 
 
+import org.apache.catalina.User;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -18,5 +20,11 @@ public class UserService {
     // List all users
     public List<UserModel> listUsers(){
         return userRepository.findAll();
+    }
+
+    // List users by ID
+    public UserModel listUsersById(Long id){
+        Optional<UserModel> userById = userRepository.findById(id);
+        return userById.orElse(null);
     }
 }

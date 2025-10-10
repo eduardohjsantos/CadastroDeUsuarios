@@ -27,9 +27,9 @@ public class ProjectController {
     }
 
     // Search user by id (READ)
-    @GetMapping("/listID")
-    public String showProjectById(){
-        return "Showing project with selected id";
+    @GetMapping("/list/{id}")
+    public ProjectModel listProjectsById(@PathVariable Long id){
+        return projectService.listProjectsById(id);
     }
 
     // Change user data (UPDATE)
