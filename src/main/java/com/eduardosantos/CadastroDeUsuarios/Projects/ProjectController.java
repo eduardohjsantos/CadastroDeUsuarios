@@ -16,8 +16,8 @@ public class ProjectController {
 
     // Add project (CREATE)
     @PostMapping("/create")
-    public String createProject(){
-        return "Project created";
+    public ProjectModel createProject(@RequestBody ProjectModel project){
+        return projectService.createProject(project);
     }
 
     // Show all users (READ)

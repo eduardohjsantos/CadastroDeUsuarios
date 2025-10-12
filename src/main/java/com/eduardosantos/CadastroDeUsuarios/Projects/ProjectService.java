@@ -27,4 +27,8 @@ public class ProjectService {
         return  projectById.orElse(null);
     }
 
+    // Create a new project
+    public ProjectModel createProject(ProjectModel project){
+        return projectRepository.save(project);
+    }
 }
