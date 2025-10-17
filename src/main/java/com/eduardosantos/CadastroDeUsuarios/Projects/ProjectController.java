@@ -39,8 +39,8 @@ public class ProjectController {
     }
 
     // Delete user (DELETE)
-    @DeleteMapping("/deleteID")
-    public String deleteProjectById(){
-        return "Delete project by id";
+    @DeleteMapping("/delete/{id}")
+    public void deleteProjectById(@PathVariable Long id){
+        projectService.deleteProject(id);
     }
 }

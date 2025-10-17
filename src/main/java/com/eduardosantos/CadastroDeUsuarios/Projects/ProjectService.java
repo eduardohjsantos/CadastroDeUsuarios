@@ -31,4 +31,9 @@ public class ProjectService {
     public ProjectModel createProject(ProjectModel project){
         return projectRepository.save(project);
     }
+
+    // Delete a project
+    public void deleteProject(Long id){
+        projectRepository.deleteById(id);
+    }
 }

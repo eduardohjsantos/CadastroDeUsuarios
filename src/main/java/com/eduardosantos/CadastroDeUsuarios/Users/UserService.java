@@ -32,4 +32,9 @@ public class UserService {
     public UserModel createUser(UserModel user){
         return userRepository.save(user);
     }
+
+    // Delete an user
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
 }
