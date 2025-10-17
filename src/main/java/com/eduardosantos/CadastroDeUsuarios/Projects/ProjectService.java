@@ -36,4 +36,13 @@ public class ProjectService {
     public void deleteProject(Long id){
         projectRepository.deleteById(id);
     }
+
+    // Update a project
+    public ProjectModel updateProject(Long id, ProjectModel updatedProject){
+        if(projectRepository.existsById(id)){
+            updatedProject.setId(id);
+            return projectRepository.save(updatedProject);
+        }
+        return null;
+    }
 }

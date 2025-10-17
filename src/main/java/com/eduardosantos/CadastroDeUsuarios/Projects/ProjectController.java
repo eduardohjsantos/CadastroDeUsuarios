@@ -33,9 +33,9 @@ public class ProjectController {
     }
 
     // Change user data (UPDATE)
-    @PutMapping("/updateID")
-    public String updateProjectById(){
-        return "Update project by id";
+    @PutMapping("/update/{id}")
+    public ProjectModel updateProjectById(@PathVariable Long id, @RequestBody ProjectModel updatedProject){
+        return projectService.updateProject(id,updatedProject);
     }
 
     // Delete user (DELETE)
