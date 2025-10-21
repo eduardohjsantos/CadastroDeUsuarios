@@ -11,11 +11,12 @@ import java.util.Optional;
 public class UserService {
 
     private UserRepository userRepository;
+    private UserMapper userMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.userMapper = userMapper;
     }
-
 
     // List all users
     public List<UserModel> listUsers(){
@@ -29,8 +30,11 @@ public class UserService {
     }
 
     // Create a new user
-    public UserModel createUser(UserModel user){
-        return userRepository.save(user);
+    public UserDTO createUser(UserDTO userDTO){
+        UserModel user = userMapper.map(userDTO);
+        user = userRepository.save(user);
+        return userMapper.map(user);
+
     }
 
     // Delete a user
