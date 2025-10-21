@@ -16,26 +16,26 @@ public class ProjectController {
 
     // Add project (CREATE)
     @PostMapping("/create")
-    public ProjectModel createProject(@RequestBody ProjectModel project){
+    public ProjectDTO createProject(@RequestBody ProjectDTO project){
         return projectService.createProject(project);
     }
 
     // Show all users (READ)
     @GetMapping("/list")
-    public List<ProjectModel> listProjects(){
+    public List<ProjectDTO> listProjects(){
         return projectService.listProjects();
     }
 
     // Search user by id (READ)
     @GetMapping("/list/{id}")
-    public ProjectModel listProjectsById(@PathVariable Long id){
+    public ProjectDTO listProjectsById(@PathVariable Long id){
         return projectService.listProjectsById(id);
     }
 
     // Change user data (UPDATE)
     @PutMapping("/update/{id}")
-    public ProjectModel updateProjectById(@PathVariable Long id, @RequestBody ProjectModel updatedProject){
-        return projectService.updateProject(id,updatedProject);
+    public ProjectDTO updateProjectById(@PathVariable Long id, @RequestBody ProjectDTO projectDTO){
+        return projectService.updateProject(id,projectDTO);
     }
 
     // Delete user (DELETE)
