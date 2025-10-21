@@ -28,20 +28,20 @@ public class UserController {
 
     // Show all users (READ)
     @GetMapping("/list")
-    public List<UserModel> listUsers(){
+    public List<UserDTO> listUsers(){
         return userService.listUsers();
     }
 
     // Search user by id (READ)
     @GetMapping("/list/{id}")
-    public UserModel listUsersById(@PathVariable Long id){
+    public UserDTO listUsersById(@PathVariable Long id){
         return userService.listUsersById(id);
     }
 
     // Change user data (UPDATE)
     @PutMapping("/update/{id}")
-    public UserModel updateUserById(@PathVariable Long id, @RequestBody UserModel updatedUser){
-        return userService.updateUser(id, updatedUser);
+    public UserDTO updateUserById(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        return userService.updateUser(id, userDTO);
     }
 
     // Delete user (DELETE)

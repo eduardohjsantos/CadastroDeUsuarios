@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectService {
@@ -18,34 +19,40 @@ public class ProjectService {
         this.projectMapper = projectMapper;
     }
 
-    // Lists all projects
-    public List<ProjectModel> listProjects(){
-        return projectRepository.findAll();
+
+    public List<ProjectDTO> listProjects(){
+        List<ProjectModel> projects = projectRepository.findAll();
+        return projects.stream()
+                .map(projectMapper::map)
+                .collect(Collectors.toList());
     }
 
-    // Lists projects by ID
-    public ProjectModel listProjectsById(Long id){
+
+    public ProjectDTO listProjectsById(Long id){
         Optional<ProjectModel> projectById = projectRepository.findById(id);
-        return  projectById.orElse(null);
+        return  projectById.map(projectMapper::map).orElse(null);
     }
 
-    // Create a new project
+
     public ProjectDTO createProject(ProjectDTO projectDTO){
         ProjectModel project = projectMapper.map(projectDTO);
         project = projectRepository.save(project);
         return projectMapper.map(project);
     }
 
-    // Delete a project
+
     public void deleteProject(Long id){
         projectRepository.deleteById(id);
     }
 
-    // Update a project
-    public ProjectModel updateProject(Long id, ProjectModel updatedProject){
-        if(projectRepository.existsById(id)){
+
+    public ProjectDTO updateProject(Long id, ProjectDTO projectDTO){
+        Optional<ProjectModel> existingProject = projectRepository.findById(id);
+        if (existingProject.isPresent()){
+            ProjectModel updatedProject = projectMapper.map(projectDTO);
             updatedProject.setId(id);
-            return projectRepository.save(updatedProject);
+            ProjectModel savedProject = projectRepository.save(updatedProject);
+            return projectMapper.map(savedProject);
         }
         return null;
     }

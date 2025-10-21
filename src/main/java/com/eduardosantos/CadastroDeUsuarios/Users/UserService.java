@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -18,35 +19,40 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    // List all users
-    public List<UserModel> listUsers(){
-        return userRepository.findAll();
+
+    public List<UserDTO> listUsers(){
+        List<UserModel> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::map)
+                .collect(Collectors.toList());
     }
 
-    // List users by ID
-    public UserModel listUsersById(Long id){
+
+    public UserDTO listUsersById(Long id){
         Optional<UserModel> userById = userRepository.findById(id);
-        return userById.orElse(null);
+        return userById.map(userMapper::map).orElse(null);
     }
 
-    // Create a new user
+
     public UserDTO createUser(UserDTO userDTO){
         UserModel user = userMapper.map(userDTO);
         user = userRepository.save(user);
         return userMapper.map(user);
-
     }
 
-    // Delete a user
+
     public void deleteUser(Long id){
         userRepository.deleteById(id);
     }
 
-    // Update a user
-    public UserModel updateUser(Long id, UserModel updatedUser){
-        if(userRepository.existsById(id)){
+
+    public UserDTO updateUser(Long id, UserDTO userDTO){
+        Optional<UserModel> existingUser = userRepository.findById(id);
+        if(existingUser.isPresent()){
+            UserModel updatedUser = userMapper.map(userDTO);
             updatedUser.setId(id);
-            return userRepository.save(updatedUser);
+            UserModel savedUser = userRepository.save(updatedUser);
+            return userMapper.map(savedUser);
         }
         return null;
     }
