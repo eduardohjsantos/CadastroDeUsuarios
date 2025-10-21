@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserModel {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +30,9 @@ public class UserModel {
 
     @Column(name = "department")
     private String department;
+
+    @Column(name = "job_title")
+    private String jobTitle;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
