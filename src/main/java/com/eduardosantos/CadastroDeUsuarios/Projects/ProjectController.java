@@ -1,5 +1,7 @@
 package com.eduardosantos.CadastroDeUsuarios.Projects;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,33 +16,57 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    // Add project (CREATE)
+
     @PostMapping("/create")
-    public ProjectDTO createProject(@RequestBody ProjectDTO project){
-        return projectService.createProject(project);
+    public ResponseEntity<String> createProject(@RequestBody ProjectDTO project){
+
+        ProjectDTO projectDTO = projectService.createProject(project);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body("Project created successfully " + projectDTO.getTitle() + " (ID): " + projectDTO.getId());
     }
 
-    // Show all users (READ)
+
     @GetMapping("/list")
-    public List<ProjectDTO> listProjects(){
-        return projectService.listProjects();
+    public ResponseEntity<List<ProjectDTO>> listProjects(){
+        return ResponseEntity.ok(projectService.listProjects());
     }
 
-    // Search user by id (READ)
+
     @GetMapping("/list/{id}")
-    public ProjectDTO listProjectsById(@PathVariable Long id){
-        return projectService.listProjectsById(id);
+    public ResponseEntity<?> listProjectsById(@PathVariable Long id){
+
+        ProjectDTO projectDTO = projectService.listProjectsById(id);
+        if(projectDTO != null){
+            return ResponseEntity.ok(projectDTO);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Project with ID: " + id + " not found");
+        }
     }
 
-    // Change user data (UPDATE)
+
     @PutMapping("/update/{id}")
-    public ProjectDTO updateProjectById(@PathVariable Long id, @RequestBody ProjectDTO projectDTO){
-        return projectService.updateProject(id,projectDTO);
+    public ResponseEntity<?> updateProjectById(@PathVariable Long id, @RequestBody ProjectDTO projectDTO){
+
+        ProjectDTO updatedProject = projectService.updateProject(id,projectDTO);
+        if(updatedProject != null){
+            return ResponseEntity.ok(updatedProject);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Project with ID: " + id + " not found");
+        }
     }
 
-    // Delete user (DELETE)
+
     @DeleteMapping("/delete/{id}")
-    public void deleteProjectById(@PathVariable Long id){
-        projectService.deleteProject(id);
+    public ResponseEntity<String> deleteProjectById(@PathVariable Long id){
+
+        if(projectService.listProjectsById(id) != null){
+            projectService.deleteProject(id);
+            return ResponseEntity.ok("Project with ID: " + id + " deleted successfully");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Project with ID: " + id + " not found");
+        }
     }
 }
