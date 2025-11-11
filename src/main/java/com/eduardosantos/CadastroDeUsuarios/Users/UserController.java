@@ -17,7 +17,7 @@ public class UserController {
         return "Essa é minha primeira mensagem nessa rota.";
     }
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
