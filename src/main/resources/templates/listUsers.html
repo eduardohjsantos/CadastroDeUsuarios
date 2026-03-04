@@ -1,0 +1,37 @@
+<!
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <title>Users Table</title>
+</head>
+<body>
+
+<h1>Users List</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Position</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>E-mail</th>
+            <th>Department</th>
+            <th>Projects</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each ="user: ${users}">
+
+            <td th:text ="${user.id}"></td>
+            <td th:text ="${user.jobTitle}"></td>
+            <td th:text ="${user.name}"></td>
+            <td th:text ="${user.age}"></td>
+            <td th:text ="${user.email}"></td>
+            <td th:text ="${user.department}"></td>
+            <td th:text ="${user.project}"></td>
+
+        </tr>
+    </tbody>
+</table>
+</body>
+</html>
