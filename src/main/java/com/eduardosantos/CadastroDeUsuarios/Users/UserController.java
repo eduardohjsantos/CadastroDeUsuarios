@@ -50,8 +50,6 @@ public class UserController {
                     .body("User with id: " + id + " not found");
 
         }
-
-
     }
 
 

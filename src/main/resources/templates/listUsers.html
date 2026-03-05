@@ -3,6 +3,110 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <title>Users Table</title>
+
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f7fb;
+            padding:40px;
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:30px;
+            color:#333;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+            border-radius:10px;
+            overflow:hidden;
+            box-shadow:0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        thead{
+            background:#4a6cf7;
+            color:white;
+        }
+
+        th, td{
+            padding:14px 16px;
+            text-align:left;
+        }
+
+        th{
+            font-size:14px;
+            letter-spacing:0.5px;
+        }
+
+        tbody tr{
+            border-bottom:1px solid #eee;
+        }
+
+        tbody tr:hover{
+            background:#f1f3ff;
+        }
+
+        td{
+            color:#444;
+            font-size:14px;
+        }
+
+
+
+        a{
+            text-decoration:none;
+            padding:6px 12px;
+            border-radius:6px;
+            font-size:13px;
+            font-weight:500;
+            margin-right:6px;
+            transition:0.2s;
+        }
+
+
+
+        a:nth-child(1){
+            background:#6c63ff;
+            color:white;
+        }
+
+        a:nth-child(1):hover{
+            background:#574fd6;
+        }
+
+
+
+        a:nth-child(2){
+            background:#f7b731;
+            color:white;
+        }
+
+        a:nth-child(2):hover{
+            background:#e0a328;
+        }
+
+
+
+        a:nth-child(3){
+            background:#ff4d4f;
+            color:white;
+        }
+
+        a:nth-child(3):hover{
+            background:#e63946;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -21,15 +125,21 @@
     </thead>
     <tbody>
         <tr th:each ="user: ${users}">
-
             <td th:text ="${user.id}"></td>
             <td th:text ="${user.jobTitle}"></td>
             <td th:text ="${user.name}"></td>
             <td th:text ="${user.age}"></td>
             <td th:text ="${user.email}"></td>
             <td th:text ="${user.department}"></td>
-            <td th:text ="${user.project}"></td>
-
+            <td>
+                <span th:if="${user.project}">Name: <span th:text="${user.project.title}"></span>, Difficulty: <span th:text="${user.project.difficulty}"></span></span>
+                <span th:if="${user.project == null}">No Project Assigned</span>
+            </td>
+            <td>
+                <a th:href="@{/users/ui/#/{id}(id=${user.id})}">See Details</a>
+                <a th:href="@{/users/ui/#/{id}(id=${user.id})}">Update</a>
+                <a th:href="@{/users/ui/delete/{id}(id=${user.id})}">Delete</a>
+            </td>
         </tr>
     </tbody>
 </table>
