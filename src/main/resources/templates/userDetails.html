@@ -13,15 +13,28 @@
 <body>
 
 <h1>User Details</h1>
-<table>
-    <thead>
-    <tr>
-        <th>Id</th>
+<div>
+    <h2 th:text="${users.name}"></h2>
+    <p><strong>Email:</strong> <span th:text="${users.email}"></span></p>
+    <p><strong>Age:</strong> <span th:text="${users.age}"></span></p>
+    <p><strong>Department:</strong> <span th:text="${users.department}"></span></p>
 
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+    <h3>Projects:</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Difficulty</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="project : ${users.project}">
+            <td th:text="${project.title}"></td>
+            <td th:text="${project.difficulty}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a href="/users/ui/list">Return to users list</a>
 </body>
 </html>
