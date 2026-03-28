@@ -1,5 +1,9 @@
 package com.eduardosantos.CadastroDeUsuarios.Users;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +17,9 @@ import java.util.List;
 public class UserController {
 
     @GetMapping("/boasvindas")
+    @Operation(summary = "Welcome message", description = "This route shows a welcome message")
     public String boasVindas(){
-        return "Essa é minha primeira mensagem nessa rota.";
+        return "Welcome!";
     }
 
     private final UserService userService;
@@ -25,6 +30,11 @@ public class UserController {
 
 
     @PostMapping("/create")
+    @Operation(summary = "Creates a new user", description = "This route creates a new user and inserts into the database")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "201", description = "User created successfully"),
+            @ApiResponse( responseCode = "400", description = "Error creating user")
+    })
     public ResponseEntity<String> createUser(@RequestBody UserDTO user){
 
         UserDTO userDTO = userService.createUser(user);
@@ -40,6 +50,11 @@ public class UserController {
 
 
     @GetMapping("/list/{id}")
+    @Operation(summary = "List user by Id", description = "Route lists a user by Id")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "200", description = "User found"),
+            @ApiResponse( responseCode = "404", description = "User not found")
+    })
     public ResponseEntity<?> listUsersById(@PathVariable Long id){
 
         UserDTO userDTO = userService.listUsersById(id);
@@ -54,8 +69,16 @@ public class UserController {
 
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateUserById(@PathVariable Long id, @RequestBody UserDTO userDTO){
-
+    @Operation(summary = "Updates user by Id", description = "Route updates a user by Id")
+    @ApiResponses(value = {
+            @ApiResponse( responseCode = "200", description = "User updated successfully"),
+            @ApiResponse( responseCode = "404", description = "User not found")
+    })
+    public ResponseEntity<?> updateUserById(
+            @Parameter(description = "The user ID is provided in the request path")
+            @PathVariable Long id,
+            @Parameter(description = "The updated user data is provided in the request body")
+            @RequestBody UserDTO userDTO){
         UserDTO updatedUser = userService.updateUser(id, userDTO);
         if(updatedUser != null){
             return ResponseEntity.ok(updatedUser);
